@@ -31,10 +31,9 @@ def index():
             nutrient_data = data.get('totalNutrients', {})
             calories = data.get('calories', 0) 
             
-            # Sort the nutrients by quantity in descending order and get the top 15
             sorted_nutrients = sorted(nutrient_data.items(), key=lambda x: x[1]['quantity'], reverse=True)
             top_nutrients = sorted_nutrients[:15]
-            top_6_nutrients = sorted_nutrients[:6]  # Save top 6 for the pie chart
+            top_6_nutrients = sorted_nutrients[:6]  
             
             return render_template('result.html', top_nutrients=top_nutrients, ingredient=ingredient)
         
@@ -57,7 +56,6 @@ def pie_chart():
     
     plt.figtext(0.5, 0.01, f"Total Calories: {calories}", ha="center", fontsize=12, color="blue")
     
-    # Save the pie chart to a BytesIO object
     img = io.BytesIO()
     plt.savefig(img, format='png')
     img.seek(0)
